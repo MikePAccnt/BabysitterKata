@@ -2,12 +2,13 @@ package mikep.babysitter.time;
 
 import java.time.LocalTime;
 
+import static java.time.temporal.ChronoUnit.HOURS;
+
 public class Time {
 
     private final LocalTime EARLIEST_TIME = LocalTime.parse("17:00");
     private final LocalTime LATEST_TIME = LocalTime.parse("04:00");
     private final LocalTime MIDNIGHT = LocalTime.parse("00:00");
-    private boolean hasBedTime = true;
     private LocalTime startTime;
     private LocalTime bedTime;
     private LocalTime endTime;
@@ -16,24 +17,16 @@ public class Time {
 
         this.startTime = parseTime(startTime);
         this.endTime = parseTime(endTime);
-
-        if(bedTime != null){
-            this.bedTime = parseTime(bedTime);
-        } else {
-            hasBedTime = false;
-        }
+        this.bedTime = parseTime(bedTime);
 
     }
 
-    public Time(String startingTime, String endTime){
-        this(startingTime, null, endTime);
-    }
 
     public boolean isValid(){
 
         boolean validStartTime = compareTimes(EARLIEST_TIME, startTime);
         boolean validEndTime =  compareTimes(endTime, LATEST_TIME);
-        boolean validBedTime = !hasBedTime || compareTimes(startTime, bedTime) && compareTimes(bedTime, MIDNIGHT) && compareTimes(bedTime, endTime);
+        boolean validBedTime = compareTimes(startTime, bedTime) && compareTimes(bedTime, MIDNIGHT) && compareTimes(bedTime, endTime);
         boolean validTimeRange = compareTimes(startTime, endTime);
 
 

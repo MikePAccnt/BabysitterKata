@@ -94,18 +94,10 @@ public class TimeTests {
 
     }
 
-    @DisplayName("Test valid time: With no BedTime")
-    @Test
-    public void testIsValidNoBedTime(){
-        Time time = new Time("7:00PM", "1:00AM");
-
-        Assertions.assertTrue(time.isValid());
-    }
-
     @DisplayName("Test valid time: With StartTime later than EndTime")
     @Test
     public void testIsValidStartTimeLaterEndTime(){
-        Time time = new Time("1:00AM", "7:00PM");
+        Time time = new Time("1:00AM", "6:00PM", "11:00PM");
 
         Assertions.assertFalse(time.isValid());
     }
