@@ -41,6 +41,17 @@ public class Time {
 
     }
 
+    public int getStartToBedTimeHours(){
+        return 0;
+    }
+
+    public int getBedTimeToMidnightHours(){
+        return 0;
+    }
+    public int getMidnightToEndTimeHours(){
+        return 0;
+    }
+
     //Need this to compare times in case one time is before midnight and the other is not.
     //LocalTime doesn't correctly do this since it has no since of days.
     private boolean compareTimes(LocalTime earliestTime, LocalTime latestTime) {

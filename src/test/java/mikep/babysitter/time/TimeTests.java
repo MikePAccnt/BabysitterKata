@@ -111,5 +111,113 @@ public class TimeTests {
     }
     //endregion isValidTests
 
+    //region getStartToBedTimeHoursTests
 
+    @DisplayName("Test getStartToBedTimeHoursTests: With valid times full hours")
+    @Test
+    public void testGetStartToBedTimeHoursFull(){
+
+        Time time = new Time("6:00PM", "8:00PM", "9:00PM");
+
+        Assertions.assertEquals(2, time.getStartToBedTimeHours());
+    }
+
+    @DisplayName("Test getStartToBedTimeHoursTests: With valid times partial hours")
+    @Test
+    public void testGetStartToBedTimeHoursPartial(){
+
+        Time time = new Time("6:00PM", "8:34PM", "9:00PM");
+
+        Assertions.assertEquals(2, time.getStartToBedTimeHours());
+    }
+
+    @DisplayName("Test getStartToBedTimeHoursTests: With invalid times")
+    @Test
+    public void testGetStartToBedTimeHoursInvalid(){
+
+        Time time = new Time("6:00PM", "5:34PM", "9:00PM");
+
+        Assertions.assertEquals(0, time.getStartToBedTimeHours());
+    }
+
+    //endregion getStartToBedTimeHoursTests
+
+    //region getBedTimeToMidnightHoursTests
+
+    @DisplayName("Test getBedTimeToMidnightHoursTests: With valid times full hours")
+    @Test
+    public void testGetBedTimeToMidnightHoursFull(){
+
+        Time time = new Time("6:00PM", "8:00PM", "1:00AM");
+
+        Assertions.assertEquals(4, time.getBedTimeToMidnightHours());
+    }
+
+    @DisplayName("Test getBedTimeToMidnightHoursTests: With valid times partial hours")
+    @Test
+    public void testGetBedTimeToMidnightHoursPartial(){
+
+        Time time = new Time("6:00PM", "8:34PM", "1:00AM");
+
+        Assertions.assertEquals(3, time.getBedTimeToMidnightHours());
+    }
+
+    @DisplayName("Test getBedTimeToMidnightHoursTests: With valid times and EndTime before midnight")
+    @Test
+    public void testGetBedTimeToMidnightHoursEndBeforeMidnight(){
+
+        Time time = new Time("6:00PM", "8:34PM", "11:00PM");
+
+        Assertions.assertEquals(2, time.getBedTimeToMidnightHours());
+    }
+
+    @DisplayName("Test getBedTimeToMidnightHoursTests: With invalid times")
+    @Test
+    public void testGetBedTimeToMidnightHoursInvalid(){
+
+        Time time = new Time("6:00PM", "5:34PM", "11:00PM");
+
+        Assertions.assertEquals(0, time.getBedTimeToMidnightHours());
+    }
+    //endregion getBedTimeToMidnightHoursTests
+
+    //region getMidnightToEndTimeHoursTests
+
+    @DisplayName("Test getMidnightToEndTimeHoursTests: With valid times full hours")
+    @Test
+    public void testGetMidnightToEndTimeHoursFull(){
+
+        Time time = new Time("6:00PM", "8:00PM", "2:00AM");
+
+        Assertions.assertEquals(2, time.getMidnightToEndTimeHours());
+    }
+
+    @DisplayName("Test getMidnightToEndTimeHoursTests: With valid times partial hours")
+    @Test
+    public void testGetMidnightToEndTimeHoursPartial(){
+
+        Time time = new Time("6:00PM", "8:34PM", "2:34AM");
+
+        Assertions.assertEquals(2, time.getMidnightToEndTimeHours());
+    }
+
+    @DisplayName("Test getMidnightToEndTimeHoursTests: With EndTime before midnight")
+    @Test
+    public void testGetMidnightToEndTimeHoursEndBeforeMidnight(){
+
+        Time time = new Time("6:00PM", "8:34PM", "11:00AM");
+
+        Assertions.assertEquals(0, time.getMidnightToEndTimeHours());
+    }
+
+    @DisplayName("Test getMidnightToEndTimeHoursTests: With invalid times")
+    @Test
+    public void testGetMidnightToEndTimeHoursInvalid(){
+
+        Time time = new Time("6:00PM", "5:34PM", "11:00PM");
+
+        Assertions.assertEquals(0, time.getMidnightToEndTimeHours());
+    }
+
+    //endregion getMidnightToEndTimeHoursTests
 }
