@@ -61,12 +61,12 @@ public class TimeTests {
 
     }
 
-    @DisplayName("Test valid time: BedTime between StartTime and EndTime")
+    @DisplayName("Test valid time: BedTime between StartTime and Midnight")
     @Test
-    public void testIsValidTimeBedTimeBetweenStartTimeEndTime(){
+    public void testIsValidTimeBedTimeBetweenStartTimeMidnight(){
 
         //StartTime, BedTime, EndTime
-        Time time = new Time("6:00PM", "7:00PM" ,"8:00PM");
+        Time time = new Time("6:00PM", "7:00PM" ,"11:59PM");
 
         Assertions.assertTrue(time.isValid());
 
