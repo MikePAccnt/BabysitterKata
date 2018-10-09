@@ -66,7 +66,7 @@ public class TimeTests {
     public void testIsValidTimeBedTimeBetweenStartTimeMidnight(){
 
         //StartTime, BedTime, EndTime
-        Time time = new Time("6:00PM", "7:00PM" ,"11:59PM");
+        Time time = new Time("6:00PM", "7:00PM" ,"12:00AM");
 
         Assertions.assertTrue(time.isValid());
 

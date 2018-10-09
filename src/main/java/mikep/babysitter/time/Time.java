@@ -67,6 +67,9 @@ public class Time {
             int hour = Integer.parseInt(timeParts[0]) + 12;
             timeParts[0] = String.valueOf(hour);
         }
+        if(timeParts[0].equals("12") && !isPM) {
+            timeParts[0] = "00";
+        }
         if(timeParts[0].length() == 1){
             timeParts[0] = "0" + timeParts[0];
         }
