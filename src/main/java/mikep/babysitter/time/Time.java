@@ -2,8 +2,13 @@ package mikep.babysitter.time;
 
 import java.time.LocalTime;
 
+import static java.time.temporal.ChronoUnit.HOURS;
+
 public class Time {
 
+    private final LocalTime EARLIEST_TIME = LocalTime.parse("17:00");
+    private final LocalTime LATEST_TIME = LocalTime.parse("04:00");
+    private boolean hasBedTime = true;
     private LocalTime startTime;
     private LocalTime bedTime;
     private LocalTime endTime;
@@ -11,15 +16,46 @@ public class Time {
     public Time(String startTime, String bedTime, String endTime){
 
         this.startTime = parseTime(startTime);
-        this.bedTime = parseTime(bedTime);
         this.endTime = parseTime(endTime);
 
-        printTimes();
+        if(bedTime != null){
+            this.bedTime = parseTime(bedTime);
+        } else {
+            hasBedTime = false;
+        }
 
     }
 
+    public Time(String startingTime, String endTime){
+        this(startingTime, null, endTime);
+    }
+
     public boolean isValid(){
-        return false;
+
+        boolean validStartTime = compareTimes(EARLIEST_TIME, startTime);
+        boolean validEndTime =  compareTimes(endTime, LATEST_TIME);
+        boolean validBedTime = !hasBedTime || compareTimes(startTime, bedTime) && compareTimes(bedTime, endTime);
+        boolean validTimeRange = compareTimes(startTime, endTime);
+
+
+        return validTimeRange && validStartTime && validEndTime && validBedTime;
+
+    }
+
+    //Need this to compare times in case one time is before midnight and the other is not.
+    //LocalTime doesn't correctly do this since it has no since of days.
+    private boolean compareTimes(LocalTime earliestTime, LocalTime latestTime) {
+
+        if(earliestTime.getHour() >= 12 && latestTime.getHour() < 12){
+            return true;
+        }
+        else if(earliestTime.getHour() < 12 && latestTime.getHour() >= 12){
+            return false;
+        }
+        else {
+            return earliestTime.compareTo(latestTime) <= 0;
+        }
+
     }
 
     private LocalTime parseTime(String time){
@@ -41,10 +77,4 @@ public class Time {
         return LocalTime.parse(convertedTime);
     }
 
-
-    private void printTimes(){
-        System.out.println("StartTime: " + startTime.toString());
-        System.out.println("BedTime: " + bedTime.toString());
-        System.out.println("EndTime: " + endTime.toString());
-    }
 }
