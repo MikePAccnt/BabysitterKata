@@ -61,6 +61,17 @@ public class TimeTests {
 
     }
 
+    @DisplayName("Test valid time: BedTime between StartTime and EndTime")
+    @Test
+    public void testIsValidTimeBedTimeBetweenStartTimeEndTime(){
+
+        //StartTime, BedTime, EndTime
+        Time time = new Time("6:00PM", "7:00PM" ,"8:00PM");
+
+        Assertions.assertTrue(time.isValid());
+
+    }
+
     @DisplayName("Test valid time: BedTime later than EndTime")
     @Test
     public void testIsValidTimeBedTimeLaterEndTime(){
