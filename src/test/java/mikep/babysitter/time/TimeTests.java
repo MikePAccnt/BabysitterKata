@@ -151,7 +151,7 @@ public class TimeTests {
 
         Time time = new Time("6:00PM", "8:34PM", "1:00AM");
 
-        Assertions.assertEquals(3, time.getBedTimeToMidnightHours());
+        Assertions.assertEquals(4, time.getBedTimeToMidnightHours());
     }
 
     @DisplayName("Test getBedTimeToMidnightHoursTests: With valid times and EndTime before midnight")

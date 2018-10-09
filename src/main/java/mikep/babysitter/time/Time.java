@@ -12,12 +12,15 @@ public class Time {
     private LocalTime startTime;
     private LocalTime bedTime;
     private LocalTime endTime;
+    private boolean endBeforeMidnight;
 
     public Time(String startTime, String bedTime, String endTime){
 
         this.startTime = parseTime(startTime);
         this.endTime = parseTime(endTime);
         this.bedTime = parseTime(bedTime);
+
+        endBeforeMidnight = compareTimes(this.endTime, MIDNIGHT);
 
     }
 
@@ -35,14 +38,29 @@ public class Time {
     }
 
     public int getStartToBedTimeHours(){
-        return 0;
+        int hours = 0;
+        if(!isValid()) return hours;
+        hours = (int)startTime.until(bedTime, HOURS);
+        return hours;
     }
 
     public int getBedTimeToMidnightHours(){
-        return 0;
+        int hours = 0;
+        if(!isValid()) return hours;
+        if(endBeforeMidnight){
+            hours = (int)bedTime.until(endTime, HOURS);
+        }
+        else {
+            hours = 24 - (int)Math.abs(bedTime.until(MIDNIGHT, HOURS));
+        }
+
+        return hours;
     }
     public int getMidnightToEndTimeHours(){
-        return 0;
+        int hours = 0;
+        if(!isValid() || endBeforeMidnight) return hours;
+        hours = (int)MIDNIGHT.until(endTime, HOURS);
+        return hours;
     }
 
     //Need this to compare times in case one time is before midnight and the other is not.
