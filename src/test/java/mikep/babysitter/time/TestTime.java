@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class TimeTests {
+public class TestTime {
 
     //region isValidTests
     @DisplayName("Test valid time: StartTime No earlier than 5:00PM")
