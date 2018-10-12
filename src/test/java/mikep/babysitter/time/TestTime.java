@@ -28,6 +28,17 @@ public class TestTime {
 
     }
 
+    @DisplayName("Test valid time: EndTime at Midnight")
+    @Test
+    public void testIsValidEndTimeAtMidnight(){
+
+        //StartTime, BedTime, EndTime
+        Time time = new Time("5:00PM", "8:00PM" ,"12:00AM");
+
+        Assertions.assertTrue(time.isValid());
+
+    }
+
     @DisplayName("Test valid time: Between 5:00PM and 4:00AM")
     @Test
     public void testIsValidTimeBetween(){
@@ -132,6 +143,15 @@ public class TestTime {
         Assertions.assertEquals(0, time.getStartToBedTimeHours());
     }
 
+    @DisplayName("Test getStartToBedTimeHoursTests: With BedTime at midnight")
+    @Test
+    public void testGetStartToBedTimeHoursBedAtMidnight(){
+
+        Time time = new Time("5:00PM", "12:00AM", "1:00AM");
+
+        Assertions.assertEquals(7, time.getStartToBedTimeHours());
+    }
+
     //endregion getStartToBedTimeHoursTests
 
     //region getBedTimeToMidnightHoursTests
@@ -171,6 +191,17 @@ public class TestTime {
 
         Assertions.assertEquals(0, time.getBedTimeToMidnightHours());
     }
+
+    @DisplayName("Test getBedTimeToMidnightHoursTests: With EndTime at Midnight")
+    @Test
+    public void testGetBedTimeToMidnightHoursEndTimeAtMidnight(){
+
+        Time time = new Time("5:00PM", "8:00PM", "12:00AM");
+
+        Assertions.assertEquals(4, time.getBedTimeToMidnightHours());
+    }
+
+
     //endregion getBedTimeToMidnightHoursTests
 
     //region getMidnightToEndTimeHoursTests
@@ -211,5 +242,13 @@ public class TestTime {
         Assertions.assertEquals(0, time.getMidnightToEndTimeHours());
     }
 
+    @DisplayName("Test getMidnightToEndTimeHoursTests: With EndTime at Midnight")
+    @Test
+    public void testGetMidnightToEndTimeHoursEndTimeAtMidnight(){
+
+        Time time = new Time("5:00PM", "8:00PM", "12:00AM");
+
+        Assertions.assertEquals(0, time.getMidnightToEndTimeHours());
+    }
     //endregion getMidnightToEndTimeHoursTests
 }

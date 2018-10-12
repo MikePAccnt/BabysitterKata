@@ -13,6 +13,8 @@ public class Time {
     private LocalTime bedTime;
     private LocalTime endTime;
     private boolean endBeforeMidnight;
+    private boolean bedAtMidnight = false;
+    private boolean endAtMidnight;
 
     public Time(String startTime, String bedTime, String endTime){
 
@@ -21,7 +23,7 @@ public class Time {
         this.bedTime = parseTime(bedTime);
 
         endBeforeMidnight = compareTimes(this.endTime, MIDNIGHT);
-
+        endAtMidnight = this.endTime.equals(MIDNIGHT);
     }
 
 
@@ -40,14 +42,19 @@ public class Time {
     public int getStartToBedTimeHours(){
         int hours = 0;
         if(!isValid()) return hours;
-        hours = (int)startTime.until(bedTime, HOURS);
+        if(bedTime.getHour() == 0){
+            bedAtMidnight = true;
+            hours = 24 + (int)startTime.until(bedTime, HOURS);
+        } else {
+            hours = (int)startTime.until(bedTime, HOURS);
+        }
         return hours;
     }
 
     public int getBedTimeToMidnightHours(){
         int hours = 0;
-        if(!isValid()) return hours;
-        if(endBeforeMidnight){
+        if(!isValid() || bedAtMidnight) return hours;
+        if(endBeforeMidnight && !endAtMidnight){
             hours = (int)bedTime.until(endTime, HOURS);
         }
         else {
@@ -86,7 +93,12 @@ public class Time {
         timeParts[1] = timeParts[1].replaceAll("AM|PM", "");
 
         if(isPM){
-            int hour = Integer.parseInt(timeParts[0]) + 12;
+            int hour;
+            if(timeParts[0].equals("12")){
+                hour = 0;
+            } else {
+                hour = Integer.parseInt(timeParts[0]) + 12;
+            }
             timeParts[0] = String.valueOf(hour);
         }
         if(timeParts[0].equals("12") && !isPM) {

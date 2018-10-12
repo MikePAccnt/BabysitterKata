@@ -54,6 +54,20 @@ public class TestBabySitterDay {
 
     }
 
+    @DisplayName("Test getPay: With BedTime at Midnight")
+    @Test
+    public void testGetPayBedAtMidnight(){
+
+        Time time = new Time("5:00PM", "12:00AM", "1:00AM");
+        BabySitterDay day = new BabySitterDay(time);
+        //start -> bed = 7 * 12 = 84
+        //bed -> midnight = 0 * 8 = 0
+        //midnight -> end = 1 * 16 = 16
+        //total = 84 + 0 + 16 = 100
+
+        Assertions.assertEquals(100, day.getPay());
+
+    }
     //endregion getPayTests
 
 }
