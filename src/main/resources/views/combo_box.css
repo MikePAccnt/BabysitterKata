@@ -1,0 +1,26 @@
+.combo-box {
+
+    -fx-background-radius: 25px;
+    -fx-background-color: #F18D9E;
+}
+
+.combo-box .list-cell {
+
+    -fx-text-fill: #FFFFFF;
+}
+
+.combo-box .combo-box-popup {
+
+    -fx-background-radius: 10px;
+}
+
+.combo-box .scroll-bar:vertical {
+
+    -fx-background-color: transparent;
+}
+
+.combo-box .list-view .list-cell{
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #E18D9E;
+
+}

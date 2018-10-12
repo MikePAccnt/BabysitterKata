@@ -19,6 +19,11 @@
     <build>
         <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -36,7 +41,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>mikep.babysitter.Main</mainClass>
+                            <mainClass>mikep.babysitter.ui.Main</mainClass>
                             <addClasspath>true</addClasspath>
                         </manifest>
                     </archive>
